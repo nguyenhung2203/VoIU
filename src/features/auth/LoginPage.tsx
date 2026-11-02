@@ -18,7 +18,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useStore';
-import { DEFAULT_USERS } from '../../data/seed';
 import { toast } from 'sonner';
 
 export const LoginPage: React.FC = () => {
@@ -60,29 +59,6 @@ export const LoginPage: React.FC = () => {
         toast.error(result.error || 'Đăng nhập không thành công');
       }
     }, 400);
-  };
-
-  const handleSelectDemoUser = (user: (typeof DEFAULT_USERS)[0]) => {
-    setEmail(user.email);
-    setPassword('123456');
-    setErrorMessage('');
-    toast.info(`Đã chọn tài khoản: ${user.name} (${user.roleTitle})`);
-  };
-
-  const handleQuickLogin = (user: (typeof DEFAULT_USERS)[0]) => {
-    setEmail(user.email);
-    setPassword('123456');
-    setIsLoading(true);
-
-    setTimeout(() => {
-      const result = login(user.email, '123456');
-      setIsLoading(false);
-      if (result.success) {
-        toast.success(`Đăng nhập thành công với vai trò ${user.roleTitle}!`);
-        const from = (location.state as any)?.from?.pathname || '/dashboard';
-        navigate(from, { replace: true });
-      }
-    }, 300);
   };
 
   return (
@@ -300,70 +276,6 @@ export const LoginPage: React.FC = () => {
               )}
             </button>
           </form>
-
-          {/* Quick Demo Accounts Selection */}
-          <div className="pt-5 border-t border-slate-200">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-strace-text uppercase tracking-wider">
-                Tài khoản trải nghiệm mẫu
-              </span>
-              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">
-                1 chạm đăng nhập
-              </span>
-            </div>
-
-            <div className="space-y-2">
-              {DEFAULT_USERS.map((user) => {
-                const isSelected = email === user.email;
-                return (
-                  <div
-                    key={user.id}
-                    onClick={() => handleSelectDemoUser(user)}
-                    className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
-                      isSelected
-                        ? 'border-strace-primary bg-emerald-50/70 shadow-xs ring-1 ring-strace-primary/30'
-                        : 'border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/30'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
-                          user.role === 'director'
-                            ? 'bg-amber-100 text-amber-800'
-                            : user.role === 'accountant'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-emerald-100 text-emerald-800'
-                        }`}
-                      >
-                        {user.name.split(' ').pop()?.slice(0, 2).toUpperCase()}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <p className="text-xs font-bold text-strace-text truncate">{user.name}</p>
-                          <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-strace-muted">
-                            {user.roleTitle}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-strace-subtle truncate">{user.email}</p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleQuickLogin(user);
-                      }}
-                      className="shrink-0 px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-strace-primary text-white opacity-90 group-hover:opacity-100 hover:bg-strace-deep transition-all shadow-xs"
-                      title="Đăng nhập ngay với tài khoản này"
-                    >
-                      Vào ngay →
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
 
           {/* Consumer Trace Public Portal link */}
           <div className="pt-2 text-center">
