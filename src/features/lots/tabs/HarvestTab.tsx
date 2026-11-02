@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Plus, Trash2, Scale, Calendar, User, Award, X, ShoppingBag } from 'lucide-react';
 import { ProductionLot, HarvestRecord } from '../../../types';
 import { useAppStore } from '../../../store/useStore';
@@ -197,9 +198,9 @@ export const HarvestTab: React.FC<HarvestTabProps> = ({ lot }) => {
       </div>
 
       {/* Modal Ghi nhận đợt thu hoạch */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-strace-border relative animate-in zoom-in-95 duration-150">
+      {isModalOpen && createPortal(
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-strace-border relative animate-in zoom-in-95 duration-150 my-auto">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-strace-subtle hover:text-strace-text p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
@@ -303,7 +304,8 @@ export const HarvestTab: React.FC<HarvestTabProps> = ({ lot }) => {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Confirm Delete */}
