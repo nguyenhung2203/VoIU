@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Leaf,
   ShieldCheck,
+  X,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -66,38 +67,51 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
   ];
 
-  const sidebarContent = (
+  const renderSidebarContent = (collapsed: boolean, isMobileView: boolean = false) => (
     <div className="flex flex-col h-full bg-[#0B3D2E] text-white select-none relative">
       {/* Brand Header */}
       <div
         className={`border-b border-white/10 ${
-          isCollapsed ? 'py-5 flex justify-center' : 'p-5 flex items-center gap-3.5'
+          collapsed ? 'py-5 flex justify-center' : 'p-5 flex items-center justify-between'
         }`}
       >
-        <div
-          onClick={() => isCollapsed && setIsCollapsed(false)}
-          className={`w-10 h-10 rounded-xl bg-gradient-to-br from-strace-fresh to-strace-primary flex items-center justify-center shrink-0 shadow-lg shadow-black/20 ${
-            isCollapsed ? 'cursor-pointer hover:scale-105 transition-transform' : ''
-          }`}
-          title={isCollapsed ? 'Nhấp để mở rộng menu' : undefined}
-        >
-          <Leaf className="w-5 h-5 text-white transform -rotate-12" />
+        <div className="flex items-center gap-3.5 min-w-0">
+          <div
+            onClick={() => collapsed && setIsCollapsed(false)}
+            className={`w-10 h-10 rounded-xl bg-gradient-to-br from-strace-fresh to-strace-primary flex items-center justify-center shrink-0 shadow-lg shadow-black/20 ${
+              collapsed ? 'cursor-pointer hover:scale-105 transition-transform' : ''
+            }`}
+            title={collapsed ? 'Nhấp để mở rộng menu' : undefined}
+          >
+            <Leaf className="w-5 h-5 text-white transform -rotate-12" />
+          </div>
+
+          {!collapsed && (
+            <div className="min-w-0">
+              <h2 className="font-black text-xl tracking-wider text-white leading-none">
+                S-TRACE
+              </h2>
+              <p className="text-[11px] text-emerald-200/80 font-normal mt-1.5 truncate">
+                Kế toán số & Nguồn gốc nông sản
+              </p>
+            </div>
+          )}
         </div>
 
-        {!isCollapsed && (
-          <div className="flex-1 min-w-0">
-            <h2 className="font-black text-xl tracking-wider text-white leading-none">
-              S-TRACE
-            </h2>
-            <p className="text-[11px] text-emerald-200/80 font-normal mt-1.5 truncate">
-              Kế toán số & Nguồn gốc nông sản
-            </p>
-          </div>
+        {/* Nút đóng dành riêng cho Mobile Drawer */}
+        {isMobileView && (
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="p-2 rounded-xl text-emerald-200/80 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+            title="Đóng menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
         )}
       </div>
 
       {/* Organization Badge */}
-      {!isCollapsed && (
+      {!collapsed && (
         <div className="mx-4 my-3 p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/40">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -114,7 +128,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Main 5 Navigation Items */}
       <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
         <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-300/50 px-3 mb-2">
-          {!isCollapsed && 'Nghiệp vụ chính'}
+          {!collapsed && 'Nghiệp vụ chính'}
         </div>
         {navigationItems.map((item) => {
           const Icon = item.icon;
@@ -131,18 +145,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 isActive
                   ? 'bg-strace-primary text-white font-semibold shadow-md shadow-strace-dark/40'
                   : 'text-emerald-100/80 hover:bg-white/10 hover:text-white'
-              } ${isCollapsed ? 'justify-center' : ''}`}
-              title={isCollapsed ? item.name : undefined}
+              } ${collapsed ? 'justify-center' : ''}`}
+              title={collapsed ? item.name : undefined}
             >
               <Icon
                 className={`w-5 h-5 shrink-0 transition-transform group-hover:scale-105 ${
                   isActive ? 'text-white' : 'text-emerald-300/80'
                 }`}
               />
-              {!isCollapsed && (
+              {!collapsed && (
                 <span className="truncate flex-1 text-[13.5px]">{item.name}</span>
               )}
-              {!isCollapsed && item.badge && (
+              {!collapsed && item.badge && (
                 <span
                   className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                     isActive ? 'bg-white/20 text-white' : 'bg-emerald-900/80 text-emerald-200'
@@ -151,7 +165,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {item.badge}
                 </span>
               )}
-              {isCollapsed && isActive && (
+              {collapsed && isActive && (
                 <div className="absolute right-1 w-1.5 h-1.5 rounded-full bg-emerald-300" />
               )}
             </NavLink>
@@ -161,7 +175,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer Branding & Agricultural Slogan */}
       <div className="p-4 border-t border-white/10 bg-emerald-950/40">
-        {!isCollapsed ? (
+        {!collapsed ? (
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-200">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -192,7 +206,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           isCollapsed ? 'w-20' : 'w-72'
         }`}
       >
-        {sidebarContent}
+        {renderSidebarContent(isCollapsed, false)}
 
         {/* Floating Collapse / Expand Button on Border */}
         <button
@@ -216,7 +230,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => setIsMobileOpen(false)}
           />
           <div className="relative flex-1 flex flex-col max-w-xs w-full bg-[#0B3D2E] shadow-2xl animate-in slide-in-from-left duration-200">
-            {sidebarContent}
+            {renderSidebarContent(false, true)}
           </div>
         </div>
       )}

@@ -80,14 +80,14 @@ export const LotExpensesTab: React.FC<LotExpensesTabProps> = ({
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full min-w-[550px] text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/75 border-b border-strace-border text-[11px] font-semibold uppercase tracking-wider text-strace-muted">
-                  <th className="py-2.5 px-4">Ngày</th>
-                  <th className="py-2.5 px-4">Khoản mục</th>
-                  <th className="py-2.5 px-4">Nội dung</th>
-                  <th className="py-2.5 px-4 text-right">Số tiền</th>
-                  <th className="py-2.5 px-4">Người chi</th>
+                  <th className="py-2.5 px-4 whitespace-nowrap">Ngày</th>
+                  <th className="py-2.5 px-4 whitespace-nowrap">Khoản mục</th>
+                  <th className="py-2.5 px-4 whitespace-nowrap">Nội dung</th>
+                  <th className="py-2.5 px-4 text-right whitespace-nowrap">Số tiền</th>
+                  <th className="py-2.5 px-4 whitespace-nowrap">Người chi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-strace-border text-xs">

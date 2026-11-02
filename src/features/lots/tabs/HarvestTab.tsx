@@ -137,16 +137,16 @@ export const HarvestTab: React.FC<HarvestTabProps> = ({ lot }) => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full min-w-[650px] text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/75 border-b border-strace-border text-[11px] font-semibold uppercase tracking-wider text-strace-muted">
-                <th className="py-3 px-4">Đợt</th>
-                <th className="py-3 px-4">Ngày thu hoạch</th>
-                <th className="py-3 px-4 text-right">Sản lượng (kg)</th>
-                <th className="py-3 px-4">Phẩm cấp chất lượng</th>
-                <th className="py-3 px-4">Người ghi nhận</th>
-                <th className="py-3 px-4">Ghi chú</th>
-                <th className="py-3 px-4 text-right">Thao tác</th>
+                <th className="py-3 px-4 whitespace-nowrap">Đợt</th>
+                <th className="py-3 px-4 whitespace-nowrap">Ngày thu hoạch</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Sản lượng (kg)</th>
+                <th className="py-3 px-4 whitespace-nowrap">Phẩm cấp chất lượng</th>
+                <th className="py-3 px-4 whitespace-nowrap">Người ghi nhận</th>
+                <th className="py-3 px-4 whitespace-nowrap">Ghi chú</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-strace-border text-xs">
@@ -159,27 +159,27 @@ export const HarvestTab: React.FC<HarvestTabProps> = ({ lot }) => {
               ) : (
                 lotHarvests.map((h) => (
                   <tr key={h.id} className="hover:bg-slate-50/75 transition-colors">
-                    <td className="py-3 px-4 font-bold text-strace-dark">
+                    <td className="py-3 px-4 font-bold text-strace-dark whitespace-nowrap">
                       Đợt {h.batchNumber}
                     </td>
-                    <td className="py-3 px-4 text-strace-muted font-medium">
+                    <td className="py-3 px-4 text-strace-muted font-medium whitespace-nowrap">
                       {formatDate(h.date)}
                     </td>
-                    <td className="py-3 px-4 text-right font-extrabold text-emerald-700 text-sm">
+                    <td className="py-3 px-4 text-right font-extrabold text-emerald-700 text-sm whitespace-nowrap">
                       {formatWeight(h.yieldKg)}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-4 whitespace-nowrap">
                       <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
                         {h.qualityGrade}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-strace-text">
+                    <td className="py-3 px-4 text-strace-text whitespace-nowrap">
                       {h.recordedBy}
                     </td>
                     <td className="py-3 px-4 text-strace-muted max-w-xs truncate">
                       {h.note || '-'}
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3 px-4 text-right whitespace-nowrap">
                       <button
                         onClick={() => setDeleteTargetId(h.id)}
                         className="p-1.5 text-strace-muted hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"

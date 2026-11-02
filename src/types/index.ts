@@ -124,3 +124,16 @@ export interface ActivityTimelineItem {
   actor: string;
   lotCode?: string;
 }
+
+export type UserRole = 'director' | 'accountant' | 'technician' | 'admin';
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  roleTitle: string;
+  avatar?: string;
+  phone: string;
+  department: string;
+}

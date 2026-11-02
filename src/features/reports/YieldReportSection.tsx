@@ -122,16 +122,16 @@ export const YieldReportSection: React.FC<YieldReportSectionProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full min-w-[780px] text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/75 border-b border-strace-border text-[11px] font-semibold uppercase tracking-wider text-strace-muted">
-                <th className="py-3 px-4">Mã lô</th>
-                <th className="py-3 px-4">Tên lô sản xuất</th>
-                <th className="py-3 px-4">Nông sản & Giống</th>
-                <th className="py-3 px-4 text-right">Kế hoạch</th>
-                <th className="py-3 px-4 text-right">Thực thu</th>
-                <th className="py-3 px-4 text-right">Tỷ lệ hoàn thành</th>
-                <th className="py-3 px-4 text-right">Năng suất (kg/ha)</th>
+                <th className="py-3 px-4 whitespace-nowrap">Mã lô</th>
+                <th className="py-3 px-4 whitespace-nowrap">Tên lô sản xuất</th>
+                <th className="py-3 px-4 whitespace-nowrap">Nông sản & Giống</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Kế hoạch</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Thực thu</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Tỷ lệ hoàn thành</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Năng suất (kg/ha)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-strace-border text-xs">
@@ -147,25 +147,25 @@ export const YieldReportSection: React.FC<YieldReportSectionProps> = ({
 
                 return (
                   <tr key={lot.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-3 px-4 font-mono font-bold text-strace-primary">
+                    <td className="py-3 px-4 font-mono font-bold text-strace-primary whitespace-nowrap">
                       {lot.code}
                     </td>
-                    <td className="py-3 px-4 font-semibold text-strace-text">
+                    <td className="py-3 px-4 font-semibold text-strace-text whitespace-nowrap">
                       {lot.name}
                     </td>
-                    <td className="py-3 px-4 text-strace-muted">
+                    <td className="py-3 px-4 text-strace-muted whitespace-nowrap">
                       {lot.cropType} • {lot.variety}
                     </td>
-                    <td className="py-3 px-4 text-right font-medium text-strace-muted">
+                    <td className="py-3 px-4 text-right font-medium text-strace-muted whitespace-nowrap">
                       {formatWeight(lot.expectedYield)}
                     </td>
-                    <td className="py-3 px-4 text-right font-bold text-emerald-700">
+                    <td className="py-3 px-4 text-right font-bold text-emerald-700 whitespace-nowrap">
                       {lot.actualYield > 0 ? formatWeight(lot.actualYield) : '-'}
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-strace-dark">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-strace-dark whitespace-nowrap">
                       {lot.actualYield > 0 ? `${completionPct}%` : 'Chưa thu hoạch'}
                     </td>
-                    <td className="py-3 px-4 text-right font-semibold text-strace-text">
+                    <td className="py-3 px-4 text-right font-semibold text-strace-text whitespace-nowrap">
                       {formatWeight(yieldPerHa)}/ha
                     </td>
                   </tr>

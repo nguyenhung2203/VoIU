@@ -107,44 +107,44 @@ export const CostReportSection: React.FC<CostReportSectionProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full min-w-[780px] text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/75 border-b border-strace-border text-[11px] font-semibold uppercase tracking-wider text-strace-muted">
-                <th className="py-3 px-4">Mã lô</th>
-                <th className="py-3 px-4">Tên lô sản xuất</th>
-                <th className="py-3 px-4">Nông sản</th>
-                <th className="py-3 px-4 text-right">Diện tích</th>
-                <th className="py-3 px-4 text-center">Số khoản chi</th>
-                <th className="py-3 px-4 text-right">Chi phí/ha</th>
-                <th className="py-3 px-4 text-right">Tổng chi phí (VNĐ)</th>
-                <th className="py-3 px-4 text-right">Tỷ trọng</th>
+                <th className="py-3 px-4 whitespace-nowrap">Mã lô</th>
+                <th className="py-3 px-4 whitespace-nowrap">Tên lô sản xuất</th>
+                <th className="py-3 px-4 whitespace-nowrap">Nông sản</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Diện tích</th>
+                <th className="py-3 px-4 text-center whitespace-nowrap">Số khoản chi</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Chi phí/ha</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Tổng chi phí (VNĐ)</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Tỷ trọng</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-strace-border text-xs">
               {lotCostSummary.map((item) => (
                 <tr key={item.lot.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="py-3 px-4 font-mono font-bold text-strace-primary">
+                  <td className="py-3 px-4 font-mono font-bold text-strace-primary whitespace-nowrap">
                     {item.lot.code}
                   </td>
-                  <td className="py-3 px-4 font-semibold text-strace-text">
+                  <td className="py-3 px-4 font-semibold text-strace-text whitespace-nowrap">
                     {item.lot.name}
                   </td>
-                  <td className="py-3 px-4 text-strace-muted">
+                  <td className="py-3 px-4 text-strace-muted whitespace-nowrap">
                     {item.lot.cropType}
                   </td>
-                  <td className="py-3 px-4 text-right font-medium">
+                  <td className="py-3 px-4 text-right font-medium whitespace-nowrap">
                     {formatArea(item.lot.area)}
                   </td>
-                  <td className="py-3 px-4 text-center font-mono">
+                  <td className="py-3 px-4 text-center font-mono whitespace-nowrap">
                     {item.expenseCount}
                   </td>
-                  <td className="py-3 px-4 text-right font-medium text-strace-muted">
+                  <td className="py-3 px-4 text-right font-medium text-strace-muted whitespace-nowrap">
                     {item.costPerHa > 0 ? formatCurrency(item.costPerHa) : '-'}
                   </td>
-                  <td className="py-3 px-4 text-right font-bold text-strace-dark">
+                  <td className="py-3 px-4 text-right font-bold text-strace-dark whitespace-nowrap">
                     {formatCurrency(item.totalCost)}
                   </td>
-                  <td className="py-3 px-4 text-right font-mono font-bold text-strace-primary">
+                  <td className="py-3 px-4 text-right font-mono font-bold text-strace-primary whitespace-nowrap">
                     {item.percentage}%
                   </td>
                 </tr>

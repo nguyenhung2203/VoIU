@@ -93,8 +93,8 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Period Selector & Action */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-medium text-strace-muted">
+        <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-medium text-strace-muted overflow-x-auto max-w-full">
             <button
               onClick={() => setPeriodFilter('all')}
               className={`px-3 py-1.5 rounded-lg transition-all ${

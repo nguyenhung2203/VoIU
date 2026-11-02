@@ -135,42 +135,42 @@ export const CostPerKgReportSection: React.FC<CostPerKgReportSectionProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full min-w-[780px] text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/75 border-b border-strace-border text-[11px] font-semibold uppercase tracking-wider text-strace-muted">
-                <th className="py-3 px-4">Mã lô</th>
-                <th className="py-3 px-4">Tên lô sản xuất</th>
-                <th className="py-3 px-4">Nông sản</th>
-                <th className="py-3 px-4 text-right">Tổng chi phí (A)</th>
-                <th className="py-3 px-4 text-right">Sản lượng thực thu (B)</th>
-                <th className="py-3 px-4 text-right">Giá thành (A / B)</th>
-                <th className="py-3 px-4 text-center">Đánh giá hiệu quả</th>
+                <th className="py-3 px-4 whitespace-nowrap">Mã lô</th>
+                <th className="py-3 px-4 whitespace-nowrap">Tên lô sản xuất</th>
+                <th className="py-3 px-4 whitespace-nowrap">Nông sản</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Tổng chi phí (A)</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Sản lượng thực thu (B)</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Giá thành (A / B)</th>
+                <th className="py-3 px-4 text-center whitespace-nowrap">Đánh giá hiệu quả</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-strace-border text-xs">
               {harvestedLots.map((item) => (
                 <tr key={item.lot.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="py-3 px-4 font-mono font-bold text-strace-primary">
+                  <td className="py-3 px-4 font-mono font-bold text-strace-primary whitespace-nowrap">
                     {item.lot.code}
                   </td>
-                  <td className="py-3 px-4 font-semibold text-strace-text">
+                  <td className="py-3 px-4 font-semibold text-strace-text whitespace-nowrap">
                     {item.lot.name}
                   </td>
-                  <td className="py-3 px-4 text-strace-muted">
+                  <td className="py-3 px-4 text-strace-muted whitespace-nowrap">
                     {item.lot.cropType} • {item.lot.variety}
                   </td>
-                  <td className="py-3 px-4 text-right font-medium text-strace-text">
+                  <td className="py-3 px-4 text-right font-medium text-strace-text whitespace-nowrap">
                     {formatCurrency(item.totalCost)}
                   </td>
-                  <td className="py-3 px-4 text-right font-bold text-emerald-700">
+                  <td className="py-3 px-4 text-right font-bold text-emerald-700 whitespace-nowrap">
                     {formatWeight(item.actualYield)}
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3 px-4 text-right whitespace-nowrap">
                     <span className="font-extrabold text-strace-dark bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                       {formatUnitPrice(item.costPerKg)}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-center">
+                  <td className="py-3 px-4 text-center whitespace-nowrap">
                     <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">
                       Tối ưu chi phí vụ 2026
                     </span>

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '../../store/useStore';
 import { StatusBadge } from '../../components/common/StatusBadge';
+import { getTraceUrl } from '../../utils/formatters';
 import { GeneralInfoTab } from './tabs/GeneralInfoTab';
 import { ProductionLogsTab } from './tabs/ProductionLogsTab';
 import { LotExpensesTab } from './tabs/LotExpensesTab';
@@ -102,7 +103,7 @@ export const LotDetailPage: React.FC = () => {
           <div className="flex items-center gap-2.5 shrink-0">
             {traceItem && (
               <a
-                href={`/trace/${traceItem.traceCode}`}
+                href={getTraceUrl(traceItem.traceCode)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-xl border border-purple-200 transition-colors"

@@ -7,6 +7,7 @@ import {
   HarvestRecord,
   TraceabilityItem,
   ActivityTimelineItem,
+  User,
 } from '../types';
 import {
   INITIAL_COOPERATIVE,
@@ -16,11 +17,28 @@ import {
   INITIAL_HARVESTS,
   INITIAL_TRACES,
   INITIAL_ACTIVITIES,
+  DEFAULT_USERS,
 } from '../data/seed';
 
-const STORAGE_KEY = 's_trace_state_v3';
+const STORAGE_KEY = 's_trace_state_v5';
+const AUTH_KEY = 's_trace_auth_user_v1';
+
+const getInitialUser = (): User | null => {
+  try {
+    const saved = localStorage.getItem(AUTH_KEY);
+    return saved ? JSON.parse(saved) : null;
+  } catch {
+    return null;
+  }
+};
 
 interface AppState {
+  // Auth state
+  currentUser: User | null;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => { success: boolean; error?: string };
+  logout: () => void;
+
   cooperative: CooperativeInfo;
   lots: ProductionLot[];
   expenses: Expense[];
@@ -101,9 +119,60 @@ const persistState = (state: Partial<AppState>) => {
 
 export const useAppStore = create<AppState>((set, get) => {
   const initial = loadInitialState();
+  const initialUser = getInitialUser();
 
   return {
     ...initial,
+    currentUser: initialUser,
+    isAuthenticated: Boolean(initialUser),
+
+    login: (email, password) => {
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPass = password.trim();
+
+      if (!cleanEmail || !cleanPass) {
+        return { success: false, error: 'Vui lòng nhập đầy đủ email và mật khẩu' };
+      }
+
+      // Check matched user in DEFAULT_USERS
+      const matched = DEFAULT_USERS.find(
+        (u) => u.email.toLowerCase() === cleanEmail
+      );
+
+      if (matched) {
+        if (cleanPass === matched.password || cleanPass === '123' || cleanPass === '123456') {
+          const { password: _, ...userObj } = matched;
+          localStorage.setItem(AUTH_KEY, JSON.stringify(userObj));
+          set({ currentUser: userObj, isAuthenticated: true });
+          return { success: true };
+        } else {
+          return { success: false, error: 'Mật khẩu không đúng. Vui lòng nhập mật khẩu mặc định (123 hoặc 123456)' };
+        }
+      }
+
+      // Fallback for custom accounts in demo
+      if (cleanPass.length >= 3) {
+        const customUser: User = {
+          id: `user-${Date.now()}`,
+          name: cleanEmail.split('@')[0],
+          email: cleanEmail,
+          role: 'admin',
+          roleTitle: 'Cán bộ HTX',
+          phone: '0262 3777 888',
+          department: 'Hợp tác xã Ea H\'leo',
+        };
+        localStorage.setItem(AUTH_KEY, JSON.stringify(customUser));
+        set({ currentUser: customUser, isAuthenticated: true });
+        return { success: true };
+      }
+
+      return { success: false, error: 'Mật khẩu phải có tối thiểu 3 ký tự' };
+    },
+
+    logout: () => {
+      localStorage.removeItem(AUTH_KEY);
+      set({ currentUser: null, isAuthenticated: false });
+    },
 
     addLot: (lotData) => {
       const id = `lot-${Date.now()}`;
