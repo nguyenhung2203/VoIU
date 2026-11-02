@@ -18,7 +18,7 @@ import {
   INITIAL_ACTIVITIES,
 } from '../data/seed';
 
-const STORAGE_KEY = 's_trace_state_v1';
+const STORAGE_KEY = 's_trace_state_v3';
 
 interface AppState {
   cooperative: CooperativeInfo;

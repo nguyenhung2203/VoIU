@@ -3,6 +3,7 @@ import QRCode from 'qrcode';
 import { X, Download, Printer, ExternalLink, Copy, Check, QrCode as QrIcon } from 'lucide-react';
 import { TraceabilityItem } from '../../types';
 import { useAppStore } from '../../store/useStore';
+import { getTraceUrl } from '../../utils/formatters';
 
 interface QRCodeModalProps {
   isOpen: boolean;
@@ -15,9 +16,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose, trace
   const [copied, setCopied] = useState(false);
   const cooperative = useAppStore((state) => state.cooperative);
 
-  const traceUrl = traceItem
-    ? `${window.location.origin}/trace/${traceItem.traceCode}`
-    : '';
+  const traceUrl = traceItem ? getTraceUrl(traceItem.traceCode) : '';
 
   useEffect(() => {
     if (traceItem && isOpen) {
@@ -162,7 +161,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose, trace
             </button>
 
             <a
-              href={`/trace/${traceItem.traceCode}`}
+              href={traceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-strace-primary hover:bg-strace-deep text-xs font-medium text-white transition-colors"

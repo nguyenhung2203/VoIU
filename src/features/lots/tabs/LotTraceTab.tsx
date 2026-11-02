@@ -14,7 +14,7 @@ import {
 import { ProductionLot, TraceabilityItem } from '../../../types';
 import { useAppStore } from '../../../store/useStore';
 import { QRCodeModal } from '../../../components/common/QRCodeModal';
-import { formatDate } from '../../../utils/formatters';
+import { formatDate, getTraceUrl } from '../../../utils/formatters';
 import { toast } from 'sonner';
 
 interface LotTraceTabProps {
@@ -49,9 +49,7 @@ export const LotTraceTab: React.FC<LotTraceTabProps> = ({ lot }) => {
     }
   }, [lot.id, traceItem]);
 
-  const traceUrl = traceItem
-    ? `${window.location.origin}/trace/${traceItem.traceCode}`
-    : '';
+  const traceUrl = traceItem ? getTraceUrl(traceItem.traceCode) : '';
 
   useEffect(() => {
     if (traceItem) {
@@ -197,7 +195,7 @@ export const LotTraceTab: React.FC<LotTraceTabProps> = ({ lot }) => {
 
             <div className="pt-2 flex items-center gap-3">
               <a
-                href={`/trace/${traceItem.traceCode}`}
+                href={traceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 bg-strace-primary hover:bg-strace-deep text-white text-xs font-semibold rounded-xl shadow-xs transition-colors"

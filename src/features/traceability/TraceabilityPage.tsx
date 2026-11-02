@@ -18,7 +18,7 @@ import { StatCard } from '../../components/common/StatCard';
 import { SearchInput } from '../../components/common/SearchInput';
 import { Pagination } from '../../components/common/Pagination';
 import { QRCodeModal } from '../../components/common/QRCodeModal';
-import { formatDate } from '../../utils/formatters';
+import { formatDate, getTraceUrl } from '../../utils/formatters';
 import { toast } from 'sonner';
 
 export const TraceabilityPage: React.FC = () => {
@@ -84,7 +84,7 @@ export const TraceabilityPage: React.FC = () => {
         </div>
 
         <a
-          href="/trace/TRACE-SR-001"
+          href={getTraceUrl('TRACE-SR-001')}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-strace-primary hover:bg-strace-deep text-white text-xs font-semibold rounded-xl shadow-xs transition-colors shrink-0"
@@ -211,7 +211,7 @@ export const TraceabilityPage: React.FC = () => {
 
                         {/* Mở trang công khai */}
                         <a
-                          href={`/trace/${trace.traceCode}`}
+                          href={getTraceUrl(trace.traceCode)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="p-1.5 text-strace-muted hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"

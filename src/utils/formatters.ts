@@ -60,3 +60,18 @@ export function formatDateTime(dateString: string | null | undefined): string {
     return dateString;
   }
 }
+
+export const DEFAULT_PRODUCTION_DOMAIN = 'https://voiu-bay.vercel.app';
+
+export function getTraceUrl(traceCode: string | null | undefined): string {
+  if (!traceCode) return '';
+  const origin =
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1' &&
+    window.location.origin
+      ? window.location.origin
+      : DEFAULT_PRODUCTION_DOMAIN;
+
+  return `${origin}/trace/${traceCode}`;
+}
