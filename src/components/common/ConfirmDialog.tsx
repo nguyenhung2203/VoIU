@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AlertTriangle, X } from 'lucide-react';
 
 interface ConfirmDialogProps {
@@ -22,14 +23,20 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-strace-border relative animate-in zoom-in-95 duration-150">
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-strace-border relative animate-in zoom-in-95 duration-150 my-auto">
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 text-strace-subtle hover:text-strace-text p-1 rounded-lg hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 text-strace-subtle hover:text-strace-text p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -51,13 +58,13 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <div className="mt-6 flex items-center justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-strace-muted hover:text-strace-text hover:bg-slate-100 rounded-xl transition-colors"
+            className="px-4 py-2 text-sm font-medium text-strace-muted hover:text-strace-text hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
           >
             {cancelLabel}
           </button>
           <button
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-medium rounded-xl text-white shadow-sm transition-colors ${
+            className={`px-4 py-2 text-sm font-medium rounded-xl text-white shadow-sm transition-colors cursor-pointer ${
               isDanger
                 ? 'bg-rose-600 hover:bg-rose-700'
                 : 'bg-strace-primary hover:bg-strace-deep'
@@ -67,6 +74,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

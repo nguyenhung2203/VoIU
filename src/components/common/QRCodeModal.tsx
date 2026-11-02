@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import QRCode from 'qrcode';
 import { X, Download, Printer, ExternalLink, Copy, Check, QrCode as QrIcon } from 'lucide-react';
 import { TraceabilityItem } from '../../types';
@@ -53,9 +54,9 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose, trace
     window.print();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-strace-border relative max-h-[90vh] overflow-y-auto">
+  return createPortal(
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-strace-border relative max-h-[90vh] overflow-y-auto my-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-strace-subtle hover:text-strace-text p-1.5 rounded-lg hover:bg-slate-100 transition-colors no-print"
@@ -172,6 +173,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose, trace
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
