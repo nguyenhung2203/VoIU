@@ -14,7 +14,6 @@ import {
   BarChart3,
   QrCode,
   Wallet,
-  ExternalLink,
   Sparkles,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useStore';
@@ -245,7 +244,7 @@ export const LoginPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-xs pt-1">
+            <div className="flex items-center text-xs pt-1">
               <label className="flex items-center gap-2 cursor-pointer select-none text-strace-muted hover:text-strace-text">
                 <input
                   type="checkbox"
@@ -255,7 +254,6 @@ export const LoginPage: React.FC = () => {
                 />
                 <span>Ghi nhớ phiên đăng nhập</span>
               </label>
-              <span className="text-[11px] text-slate-400 font-mono">Bảo mật SSL 256-bit</span>
             </div>
 
             <button
@@ -276,19 +274,6 @@ export const LoginPage: React.FC = () => {
               )}
             </button>
           </form>
-
-          {/* Consumer Trace Public Portal link */}
-          <div className="pt-2 text-center">
-            <a
-              href="/trace/TRACE-SR-001"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-strace-primary hover:text-strace-deep font-semibold transition-colors"
-            >
-              <span>Xem trang quét mã QR truy xuất công khai dành cho người tiêu dùng</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
 
           {/* Footer note */}
           <div className="text-center text-[11px] text-slate-400">
