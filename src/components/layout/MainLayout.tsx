@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Toaster } from 'sonner';
-import { useAppStore } from '../../store/useStore';
 
 export const MainLayout: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  const isAuthenticated = useAppStore((state) => state.isAuthenticated);
-  const location = useLocation();
-
-  // Yêu cầu: khi mở web sẽ vào trang đăng nhập trước
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
 
   return (
     <div className="flex min-h-screen bg-strace-bg text-strace-text">

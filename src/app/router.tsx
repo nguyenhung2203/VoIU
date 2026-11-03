@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { MainLayout } from '../components/layout/MainLayout';
-import { LoginPage } from '../features/auth/LoginPage';
 import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { ExpensesPage } from '../features/expenses/ExpensesPage';
 import { LotsListPage } from '../features/lots/LotsListPage';
@@ -12,11 +11,6 @@ import { ReportsPage } from '../features/reports/ReportsPage';
 import { NotFoundPage } from '../features/NotFoundPage';
 
 export const router = createBrowserRouter([
-  // Trang đăng nhập hệ thống (không có layout quản trị)
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
   // Routes quản trị bên trong MainLayout
   {
     path: '/',

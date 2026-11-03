@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Menu,
   Bell,
@@ -11,7 +10,6 @@ import {
   CheckCircle2,
   Clock,
   User as UserIcon,
-  LogOut,
   ShieldCheck,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useStore';
@@ -24,17 +22,14 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
-  const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const cooperative = useAppStore((state) => state.cooperative);
   const activities = useAppStore((state) => state.activities);
   const resetToSeedData = useAppStore((state) => state.resetToSeedData);
   const currentUser = useAppStore((state) => state.currentUser);
-  const logout = useAppStore((state) => state.logout);
 
   const notifRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -58,14 +53,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
     setShowResetConfirm(false);
     setShowUserMenu(false);
     toast.success('Đã khôi phục dữ liệu mẫu thành công!');
-  };
-
-  const handleLogout = () => {
-    logout();
-    setShowLogoutConfirm(false);
-    setShowUserMenu(false);
-    toast.success('Đã đăng xuất khỏi hệ thống S-TRACE');
-    navigate('/login', { replace: true });
   };
 
   const userInitials = currentUser?.name
@@ -225,17 +212,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
                   <RotateCcw className="w-4 h-4 text-amber-600" />
                   <span>Khôi phục dữ liệu mẫu (Reset)</span>
                 </button>
-
-                <button
-                  onClick={() => {
-                    setShowUserMenu(false);
-                    setShowLogoutConfirm(true);
-                  }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-xl transition-colors text-left cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4 text-rose-500" />
-                  <span>Đăng xuất khỏi hệ thống</span>
-                </button>
               </div>
 
               <div className="pt-2 mt-2 border-t border-slate-100 px-3 text-[10px] text-strace-subtle flex items-center justify-between">
@@ -256,17 +232,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileMenu }) => {
         cancelLabel="Hủy"
         onConfirm={handleResetData}
         onCancel={() => setShowResetConfirm(false)}
-      />
-
-      {/* Confirm Logout Dialog */}
-      <ConfirmDialog
-        isOpen={showLogoutConfirm}
-        title="Xác nhận đăng xuất?"
-        message="Bạn có chắc chắn muốn đăng xuất khỏi hệ thống S-TRACE? Bạn sẽ được chuyển về màn hình đăng nhập."
-        confirmLabel="Đăng xuất"
-        cancelLabel="Ở lại"
-        onConfirm={handleLogout}
-        onCancel={() => setShowLogoutConfirm(false)}
       />
     </header>
   );

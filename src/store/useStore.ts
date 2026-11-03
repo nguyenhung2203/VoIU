@@ -123,8 +123,8 @@ export const useAppStore = create<AppState>((set, get) => {
 
   return {
     ...initial,
-    currentUser: initialUser,
-    isAuthenticated: Boolean(initialUser),
+    currentUser: initialUser || DEFAULT_USERS[0],
+    isAuthenticated: true,
 
     login: (email, password) => {
       const cleanEmail = email.trim().toLowerCase();
